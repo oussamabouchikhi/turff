@@ -16,7 +16,7 @@ import { Comment } from 'src/comments/entities/comment.entity';
     TicketsModule,
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: `.env.${process.env.NODE_ENV}`,
+      envFilePath: `.env.development`,
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -24,16 +24,11 @@ import { Comment } from 'src/comments/entities/comment.entity';
       useFactory: (config: ConfigService) => {
         return {
           type: 'mysql',
-          host: 'oussama-do-user-4895963-0.b.db.ondigitalocean.com',
-          // host: config.get<string>('DB_HOST'),
-          port: 25060,
-          // port: +config.get<string>('DB_PORT'),
-          database: 'defaultdb',
-          // database: config.get<string>('DB_NAME'),
-          username: 'doadmin',
-          // username: config.get<string>('DB_USERNAME'),
-          password: 'AVNS_BjGzkSGsI58BblzwZ3t',
-          // password: config.get<string>('DB_PASSWORD'),
+          host: config.get<string>('DB_HOST'),
+          port: +config.get<string>('DB_PORT'),
+          database: config.get<string>('DB_NAME'),
+          username: config.get<string>('DB_USERNAME'),
+          password: config.get<string>('DB_PASSWORD'),
           entities: [Ticket, Comment, User],
           autoLoadEntities: true,
           synchronize: true,
