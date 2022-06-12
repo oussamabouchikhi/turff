@@ -1,7 +1,8 @@
-import { Ticket } from 'src/tickets/entities/ticket.entity';
-// import { User } from 'src/users/entities/user.entity';
-import { Column, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from 'src/users/entities/user.entity';
+import { Ticket } from '../../tickets/entities/ticket.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
+@Entity()
 export class Comment {
   @PrimaryGeneratedColumn()
   id: number;
@@ -9,10 +10,8 @@ export class Comment {
   @ManyToOne(() => Ticket, (ticket) => ticket.comments)
   ticket_id: Ticket;
 
-  //   @ManyToOne(() => User, (user) => user.comments)
-  //   user_id: User;
-  @Column()
-  user_id: number;
+  @ManyToOne(() => User, (user) => user.comments)
+  user_id: User;
 
   @Column()
   text: string;

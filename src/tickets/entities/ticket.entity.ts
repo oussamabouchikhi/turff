@@ -1,7 +1,8 @@
 import { IsNumber, IsString } from 'class-validator';
 import { Comment } from 'src/comments/entities/comment.entity';
-import { PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { PrimaryGeneratedColumn, Column, OneToMany, Entity } from 'typeorm';
 
+@Entity()
 export class Ticket {
   @PrimaryGeneratedColumn()
   @IsNumber()

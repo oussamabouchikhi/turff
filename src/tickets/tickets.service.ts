@@ -30,9 +30,13 @@ export class TicketsService {
     return ticket;
   }
 
-  // @TODO
   async update(id: string, updateTicketDto: UpdateTicketDto) {
-    const ticket = await this.findOne(id);
+    const ticket = await this.ticketsRepository.findOne({
+      where: {
+        id: +id,
+      },
+    });
+    console.log({ ticket });
     if (!ticket) {
       throw new NotFoundException('ticket not found');
     }
